@@ -1,0 +1,1 @@
+# szemantikus-szegmentalas
