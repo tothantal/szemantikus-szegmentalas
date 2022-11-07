@@ -17,7 +17,7 @@ def cluster_single_image():
     # Load the dataset
     ds = load_dataset()
     
-    # Get images
+    # Get a single image from dataset
     ds_example, = ds.take(1)
     img = ds_example['image']
 
