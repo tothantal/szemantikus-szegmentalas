@@ -13,6 +13,8 @@ def load_dataset():
     return tfds.load('nyu_depth_v2', split = tfds.Split.TRAIN, shuffle_files = True)
 
 def cluster_single_image():
+    
+    # Load the dataset
     ds = load_dataset()
     
     # Get images
