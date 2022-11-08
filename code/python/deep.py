@@ -32,7 +32,6 @@ X_train, X_test, y_train, y_test = train_test_split(X_numpy, y_numpy,
 y_train = to_categorical(y_train, 30)
 y_test = to_categorical(y_test, 30)
 
-
 # Creating Model
 model = tf.keras.Sequential([
     tf.keras.layers.Dense(100, activation = tf.nn.relu, input_shape = (480, 640, 3)),    
@@ -60,6 +59,5 @@ model.compile(loss = 'categorical_crossentropy',
 model.summary()
 
 # Training
-
 model.fit(X_train, y_train, epochs = 10, 
           batch_size = 1, validation_data=(X_test, y_test))
