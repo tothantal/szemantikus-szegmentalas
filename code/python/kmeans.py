@@ -34,7 +34,7 @@ def cluster_single_image():
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2)
 
     # number of clusters
-    k = 10 
+    k = 7 
 
     # clustering
     _, labels, (centers) = cv2.kmeans(pixel_values, k, None, criteria, 21, cv2.KMEANS_RANDOM_CENTERS)
