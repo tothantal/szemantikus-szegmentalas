@@ -51,8 +51,21 @@ def cluster_single_image():
     plt.axis('off')
     plt.imshow(segmented_image)
     
+    # metrics
+    depth = ds_example['depth']
+    depth_labels = depth.numpy().flatten()
+    
+    homogeneity = metrics.homogeneity_score(labels, depth_labels)
+    completeness = metrics.completeness_score(labels, depth_labels)
+    v_measure = metrics.v_measure_score(labels, depth_labels)
+    
+    return homogeneity, completeness, v_measure
     
 def main():
-    cluster_single_image()
+    homogeneity, completeness, v_measure = cluster_single_image()
+    
+    print("Homogeneity: " + str(homogeneity))
+    print("Completeness: " + str(completeness))
+    print("V-measure: " + str(v_measure))
     
 main()
