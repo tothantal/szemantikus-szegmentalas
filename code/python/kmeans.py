@@ -8,6 +8,7 @@ import tensorflow_datasets as tfds
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn import metrics
 
 def load_dataset():
     return tfds.load('nyu_depth_v2', split = tfds.Split.TRAIN, shuffle_files = True)
