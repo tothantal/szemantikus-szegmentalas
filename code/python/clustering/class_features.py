@@ -91,5 +91,5 @@ if __name__ == "__main__":
     pickle.dump(model, open("model.pickle", 'wb'))
 
     x1 = X[50, : ]
-    print(neigh.predict([x1]))
-    print(neigh.kneighbors([x1], return_distance=True))
+    print(model.predict([x1]))
+    print(model.kneighbors([x1], return_distance=True))
