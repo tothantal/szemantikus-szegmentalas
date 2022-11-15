@@ -23,10 +23,9 @@ if __name__ == "__main__":
         label = images[2]
     
     
-    plt.imshow(image)
-    segmented_image = se.kmeans(image, 7)
-    preprocessed_image = fe.preprocess(segmented_image)
-    feature_map = fe.create_feature_map(preprocessed_image, depth)
+    preprocessed_image = fe.preprocess(image)
+    segmented_image = se.kmeans(preprocessed_image, 3)
+    feature_map = fe.create_feature_map(segmented_image, depth)
     
     limit = 20
     step = 1
