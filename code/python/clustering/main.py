@@ -11,6 +11,7 @@ import segmentation as se
 import class_features as cf
 import pickle
 import numpy as np
+import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     test_files = df.load_test_files()
@@ -21,7 +22,9 @@ if __name__ == "__main__":
         depth = images[1]
         label = images[2]
     
-    segmented_image = se.kmeans(image, 2)
+    
+    plt.imshow(image)
+    segmented_image = se.kmeans(image, 7)
     preprocessed_image = fe.preprocess(segmented_image)
     feature_map = fe.create_feature_map(preprocessed_image, depth)
     
