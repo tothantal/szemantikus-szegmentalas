@@ -12,12 +12,11 @@ import class_features as cf
 import pickle
 
 if __name__ == "__main__":
-    train_files = df.load_train_files()
+    test_files = df.load_test_files()
     
-    for images in train_files:
+    for images in test_files:
         image = images[0]
         depth = images[1]
-        label = images[2]
     
     segmented_image = se.kmeans(image, 7)
     preprocessed_image = fe.preprocess(segmented_image)
