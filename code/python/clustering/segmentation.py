@@ -21,6 +21,10 @@ def create_segments_by_kmeans(img, k = 50):
     label_img = np.uint32(labels.reshape((h, w)))
     return label_img
 
+def postprocess(img):
+    img = cv2.MedianBlur(img, 5)
+    return image
+
 def create_segments_by_felzenszwalb(image):
     segments = skimage.segmentation.felzenszwalb(image, scale=150, sigma=1.0, min_size=25)
     return segments
