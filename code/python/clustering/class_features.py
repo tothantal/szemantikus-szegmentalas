@@ -37,7 +37,7 @@ def collect_class_feature(d, img, depth, label, step = 8, limit = 20):
                 d[class_lbl] = [feature_map[i, j, :]]
             elif len(d[class_lbl]) < limit:
                 d[class_lbl].append(feature_map[i, j, :])
-
+    
 
 def collect_class_features(train_data):
     """
@@ -83,13 +83,12 @@ if __name__ == "__main__":
     print(X.shape, y.shape)
     print(y)
 
-    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.tree import DecisionTreeClassifier
 
-    model = KNeighborsClassifier(n_neighbors=5)
+    model = DecisionTreeClassifier()
     model.fit(X, y)
 
     pickle.dump(model, open("model.pickle", 'wb'))
 
     x1 = X[50, : ]
     print(model.predict([x1]))
-    print(model.kneighbors([x1], return_distance=True))
