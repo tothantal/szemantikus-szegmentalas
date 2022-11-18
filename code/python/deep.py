@@ -1,7 +1,5 @@
 """
-
 @author: Tóth Antal
-
 """
 
 from tensorflow.keras.utils import to_categorical
@@ -16,8 +14,7 @@ ds, info = tfds.load('nyu_depth_v2',
                      data_dir = "d:/tensor/",
                      split = ['train[1%:]', 'train[:1%]'], 
                      as_supervised = True, 
-                     with_info = True,
-                     shuffle_files = True)
+                     with_info = True)
 
 ds_train = ds[1]
 
@@ -27,15 +24,24 @@ y_numpy = np.asarray(list(map(lambda x: x[1], tfds.as_numpy(ds_train))))
 X_train, X_test, y_train, y_test = train_test_split(X_numpy, y_numpy, 
                                                     test_size=0.2, 
                                                     random_state=42)
-y_train = to_categorical(y_train, 20)
-y_test = to_categorical(y_test, 20)
+y_train = to_categorical(y_train, 11)
+y_test = to_categorical(y_test, 11)
+
+print(y_train.shape)
+print(y_test.shape)
 
 # Creating Model
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(3, activation = tf.nn.relu, input_shape = (480, 640, 3)),    
-    tf.keras.layers.Dense(10, activation = tf.nn.relu),
-    tf.keras.layers.Dense(20, activation = 'softmax')
-])
+        tf.keras.Input(shape = (480, 640, 3)),
+        tf.keras.layers.Conv2D(16, (3, 3)),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.Conv2D(16, (3, 3)),
+        tf.keras.layers.MaxPooling2D((2, 2)),
+        tf.keras.layers.UpSampling2D((2, 2)),
+        tf.keras.layers.Conv2DTranspose(16, (3, 3)),
+        tf.keras.layers.UpSampling2D((2, 2)),
+        tf.keras.layers.Conv2DTranspose(11, (5, 5)),
+    ])
 
 # F1
 def f1_metric(y_true, y_pred):
@@ -48,10 +54,11 @@ def f1_metric(y_true, y_pred):
     return f1_val
 
 # Compiling
-jacard =  tf.keras.metrics.MeanIoU(num_classes = 30)
-model.compile(loss = 'categorical_crossentropy', 
-              optimizer='adam', 
-              metrics=['accuracy', jacard, f1_metric])
+jaccard =  tf.keras.metrics.MeanIoU(num_classes = 11)
+optimizer = tf.keras.optimizers.Adam( learning_rate = 0.00001)
+model.compile(loss = 'binary_crossentropy', 
+              optimizer=optimizer, 
+              metrics=['accuracy', f1_metric])
 
 # Summary
 model.summary()
