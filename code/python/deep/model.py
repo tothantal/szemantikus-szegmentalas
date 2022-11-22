@@ -20,7 +20,7 @@ def create_model():
             tf.keras.layers.Conv2DTranspose(16, (3, 3)),
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.UpSampling2D((2, 2)),
-            tf.keras.layers.Conv2DTranspose(1, (5, 5)),
+            tf.keras.layers.Conv2DTranspose(1, (5, 5))
         ])
     
     return model
