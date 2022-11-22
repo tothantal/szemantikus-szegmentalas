@@ -10,6 +10,7 @@ import tensorflow as tf
 import deep as d
 import numpy as np
 import cv2
+import metrics as me
 
 
 def load_test_files(fname = 'test.pickle'):
@@ -19,7 +20,7 @@ def load_test_files(fname = 'test.pickle'):
 def get_model():
     model = tf.keras.models.load_model('deep.model', 
                                        custom_objects = {
-                                           'f1_metric':d.f1_metric
+                                           'f1_metric':me.f1
                                            }  
                                        )
     return model
@@ -46,6 +47,6 @@ if __name__ == "__main__":
         image = np.array(p)
         image = np.moveaxis(image, -1, 0)
         for img in image:
-            # show_labels(i, "result", 0)
-            cv2.imwrite("results/result" + str(i) + ".png", img.astype(np.uint8))
+            # show_labels(i, "result", 0)    
+            cv2.imwrite("results/result" + str(i) + ".png", img.astype(np.uint8) * 100)
             i = i + 1
